@@ -4,9 +4,6 @@ Connects SmartThings with Sense
 ### Beta Notice and known limitations
 * This SmartApp is considered an early "beta" - functionality is limited and there are likely to be bugs. Feel free to <a href="https://github.com/brbeaird/SmartThings_SenseMonitor/issues">create and track issues here</a>.
 
-* The app does not currently handle when Sense devices are deleted - you'll need to manually delete the counterpart in SmartThings
-* The app does not offer the ability to exclude certain Sense devices from SmartThings; for now, they will all come over.
-
 ### Overview
 * This SmartApp is currently only supported in the **SmartThings Classic mobile app**; the new app does not yet support custom apps like this.
 * The app requires a node server running on a machine (PC, Raspberry PI, etc.) on the same LAN as your SmartThings hub (don't worry - setup is quite simple). The node server creates a realtime websocket connection with Sense. On relevant events, the node server sends data over your LAN to the hub. The SmartApp listens for this data and then updates devices in SmartThings as needed.
@@ -47,7 +44,7 @@ There are 2 code files needed: 1 SmartApp and 1 Device Handler.
 3. Click on **My Device Handlers** -> **Create new Device Handler** -> **From Code**.
 4. Copy contents of <a href="https://raw.githubusercontent.com/brbeaird/SmartThings_SenseMonitor/master/devicetypes/brbeaird/sense-monitor-device.src/sense-monitor-device.groovy">Sense Device </a> and paste into text area. Click **Create**. Click **Publish** > **For Me**
 5. Now we create the SmartApp code. Click **My SmartApps** -> **New Smartapp** -> **From Code**.
-6. Copy contents of <a href="https://raw.githubusercontent.com/brbeaird/SmartThings_SenseMonitor/master/smartapps/brbeaird/sensemonitor.src/sensemonitor.groovy">SmartApp</a> and paste into text area. Click **Create**. Click **Publish** > **For Me**
+6. Copy contents of <a href="https://raw.githubusercontent.com/brbeaird/SmartThings_SenseMonitor/master/smartapps/brbeaird/sense-monitor-app.src/sense-monitor-app.groovy">SmartApp</a> and paste into text area. Click **Create**. Click **Publish** > **For Me**
 7. In your SmartThings mobile app, tap **Automation** -> **SmartApps** -> **Add a SmartApp**. Scroll down and tap **My Apps**. Tap **Sense**. Tap save to complete the installation. Your SmartApp is now listening for Sense data. Move on to the node server setup! 
 
 ### SmartThings IDE GitHub Integration:
@@ -66,7 +63,7 @@ In the future, should you wish to update, simply repeat steps 2 and 3. The only 
  2. Download (or git clone) the  files <a href="https://github.com/brbeaird/SmartThings_SenseMonitor">in this repository</a>. If you're new to git, you can click the green Download button and grab a zip file of everything. Extract the zip file.
  3. Open a command prompt and navigate to the location where you downloaded the files in step 2. Navigate down to SmartThings_SenseMonitor\node_server. 
  4. Run `npm install` (this grabs needed libraries)
- 5. Open the server.js file in a text editor and put in your Sense login information and SmartThings hub IP under the required settings section. You can find your hub IP in the SmartThings IDE by clicking the Hub link, then clicking your hub, then scrolling down to IP Address. Be sure to save your changes.
+ 5. Open the config.js file in a text editor and put in your Sense login information and SmartThings hub IP under the required settings section. You can find your hub IP in the SmartThings IDE by clicking the Hub link, then clicking your hub, then scrolling down to IP Address. Be sure to save your changes.
  6. Run `node server.js`. This starts up the data connection. If all goes well, you should see a successful connection message. Leave this window running to continue collecting data and sending it to SmartThings.
  7. I strongly recommend using something like PM2 to keep the node server running in the background. Will add more detailed steps on that later.
 
